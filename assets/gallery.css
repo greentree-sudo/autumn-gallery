@@ -256,6 +256,8 @@ body::before{
 }
 @media (min-width:1060px){
   .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:66px 34px}
+  /* 작품 수가 3의 배수가 아닐 때 마지막 한 점은 가운데로 모아 둔다 */
+  .grid > .work:last-child:nth-child(3n+1){grid-column:2}
 }
 .work{
   position:relative;margin:0;min-width:0;
