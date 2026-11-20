@@ -12,7 +12,7 @@
   var bgmState = doc.getElementById("bgmState");
   var bgmIcon = bgmBtn ? bgmBtn.querySelector(".bgm-icon") : null;
   var fadeT = null;
-  var TARGET = 0.5;
+  var TARGET = 0.22;   /* 미술관 배경음 크기 — 은은하게 */
   var ducked = false;   /* 영상 때문에 잠시 멈춘 상태 */
   var manualOff = false;
 
@@ -32,12 +32,13 @@
   function fade(to) {
     if (!audio) return;
     if (fadeT) { clearInterval(fadeT); fadeT = null; }
-    var v = audio.volume;
+    var step = 0.02;
     fadeT = setInterval(function () {
-      v += to > v ? 0.04 : -0.04;
-      if ((to > v && v >= to) || (to < v && v <= to)) { v = to; clearInterval(fadeT); fadeT = null; }
+      var cur = audio.volume;
+      var v = cur + (to > cur ? step : -step);
+      if ((to > cur && v >= to) || (to < cur && v <= to)) { v = to; clearInterval(fadeT); fadeT = null; }
       audio.volume = Math.max(0, Math.min(1, v));
-    }, 45);
+    }, 40);
   }
   function startBgm() {
     if (!audio) return;
